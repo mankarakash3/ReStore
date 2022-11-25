@@ -38,6 +38,16 @@ namespace API
              services.AddDbContext<StoreContext>(opt => {
                 opt.UseSqlite(Configuration.GetConnectionString("DefaultConnectionString"));
             });
+
+                services.AddCors(  
+                options => options.AddPolicy("AllowCors",  
+                builder => {  
+                builder  
+                .AllowAnyOrigin() //AllowAllOrigins;  
+                .WithMethods("GET", "PUT", "POST", "DELETE") //AllowSpecificMethods;  
+                .AllowAnyHeader(); //AllowAllHeaders;  
+        })  
+);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,6 +63,19 @@ namespace API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            // app.UseCors(opt =>
+            //     opt.AllowAnyHeader().AllowAnyMethod().WithOrigins(
+            //         "http://localhost:3000/"
+            //     )
+            // );
+            app.UseCors("AllowCors");  
+
+            app.UseCors(x => x
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .SetIsOriginAllowed(origin => true) // allow any origin
+                    .AllowCredentials()); // allow credentials
 
             app.UseAuthorization();
 
