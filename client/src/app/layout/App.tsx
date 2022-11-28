@@ -7,6 +7,11 @@ import {
   CssBaseline,
   ThemeProvider,
 } from "@material-ui/core";
+import { Route } from "react-router-dom";
+import HomePage from "../../features/hone/HomePage";
+import ProductDetails from "../../features/catalog/ProductDetails";
+import ContactPage from "../../features/Contact/ContactPage";
+import AboutPage from "../../features/about/AboutPage";
 //"./app/layout/models/Product";
 
 function App() {
@@ -28,7 +33,11 @@ function App() {
       <CssBaseline />
       <Header ThemeChangeHandler={ThemeChangeHandler} darkmode={theme} />
       <Container>
-        <Catalog />
+        <Route exact path="/" component={HomePage} />
+        <Route exact path="/catalog" component={Catalog} />
+        <Route path="/catalog/:id" component={ProductDetails} />
+        <Route path="/contact" component={ContactPage} />
+        <Route path="/about" component={AboutPage} />
       </Container>
     </ThemeProvider>
   );

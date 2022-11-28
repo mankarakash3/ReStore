@@ -6,11 +6,10 @@ import {
   CardActions,
   CardHeader,
   Avatar,
-  IconButton,
 } from "@material-ui/core";
 import Card from "@mui/material/Card/Card";
+import { Link } from "react-router-dom";
 import { Product } from "../../app/models/Product";
-import { Box, ThemeProvider, createTheme } from "@mui/system";
 
 interface Props {
   product: Product;
@@ -49,7 +48,9 @@ export default function ProductCard({ product }: Props) {
       </CardContent>
       <CardActions>
         <Button size="small">Add to Cart</Button>
-        <Button size="small">View</Button>
+        <Button size="small" component={Link} to={`/catalog/${product.id}`}>
+          View
+        </Button>
       </CardActions>
     </Card>
   );
